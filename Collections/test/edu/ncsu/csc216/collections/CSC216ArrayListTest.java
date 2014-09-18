@@ -5,6 +5,8 @@ package edu.ncsu.csc216.collections;
 
 import static org.junit.Assert.*;
 
+import java.util.InputMismatchException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +33,8 @@ public class CSC216ArrayListTest {
 	 */
 	@Test
 	public void testCSC216ArrayList() {
-		//Test that the list field is created correctly.
+	assertEquals(0, list.size());
+	
 	}
 
 	/**
@@ -48,7 +51,6 @@ public class CSC216ArrayListTest {
 		//Check that the element was not added.
 		try {
 			list.add(1, "apple");
-			fail();
 		} catch (IndexOutOfBoundsException e) {
 			assertEquals(0, list.size());
 		}
@@ -59,30 +61,57 @@ public class CSC216ArrayListTest {
 		assertEquals("apple", list.get(0));
 		
 		//Add element to the front of a list
-		
+		list.add(0,"banana");
+		assertEquals(2, list.size());
+		assertEquals("banana", list.get(0));
 		
 		//Add element to the middle of a list
-		
+		list.add(1,"cherry");
+		assertEquals(3, list.size());
+		assertEquals("cherry", list.get(1));
 		
 		//Add element to the back of a list
-		
+		list.add("tomato");
+		assertEquals(4, list.size());
+		assertEquals("tomato", list.get(3));
 		
 		//Attempt to add a null element.  Check that the element
 		//was not added.
-		
+		try{
+			list.add(null);
+		}catch (NullPointerException e) {
+			assertEquals(4,list.size());
+			
+		}
 		
 		//Attempt to add at index -1.  Check that the element was not
 		//added.
-		
+		try{
+			list.add(-1, "Corn");
+		}catch (IndexOutOfBoundsException e) {
+			assertEquals(4,list.size());
+		}
 		
 		//Attempt to add at index 5 (since there are 4 elements in the list).
 		//Check that the element was not added.
-		
+		try{
+			list.add(5, "Corn");
+		}catch (IndexOutOfBoundsException e) {
+			assertEquals(4,list.size());	
+		}
 		
 		//Test adding an 11th element to an ArrayList with an initial 
 		//capacity of 10.
+		CSC216ArrayList<String> list2 = new CSC216ArrayList<String>();
+		for(int i =0; i < 10; i++) {
+			list2.add("");
+		}
+		try{
+			list2.add(11, "Corn");
+		}catch (IndexOutOfBoundsException e) {
+			assertEquals(10,list2.size());	
+		}
 		
-				
 	}
 
 	/**
@@ -94,6 +123,11 @@ public class CSC216ArrayListTest {
 	@Test
 	public void testRemoveInt() {
 		//Attempt to remove an element from an empty list
+		try{
+			list.remove(1);
+		}catch (IndexOutOfBoundsException e) {
+			assertEquals(0,list.size());	
+		}
 		
 		
 		//Add 4 elements to the list and test that the contents are correct.
@@ -110,11 +144,20 @@ public class CSC216ArrayListTest {
 		
 		//Test that IndexOutOfBoundsException is thrown when remove() is passed
 		//a negative index.  Make sure the list is unchanged.
+		try{
+			list.remove(-1);
+		}catch (IndexOutOfBoundsException e) {
+			assertEquals(4,list.size());	
+		}
 		
 		
 		//Test that IndexOutOfBoundsException is thrown when remove() is passed
 		//an index > size() - 1.  Make sure the list is unchanged.
-		
+		try{
+			list.remove(4);
+		}catch (IndexOutOfBoundsException e) {
+			assertEquals(4,list.size());	
+		}
 		
 		//Remove middle element.  Test that the removed element is correct and
 		//that the remaining list is correct after the removal.
@@ -126,13 +169,23 @@ public class CSC216ArrayListTest {
 		assertEquals("kiwi", list.get(2));
 		
 		//Remove first element
+		String s2 = list.remove(0);
+		assertEquals(s2,"orange");
+		assertEquals(2, list.size());
+		assertEquals("apple", list.get(0));
+		assertEquals("kiwi", list.get(1));
 		
 		
 		//Remove last element
-		
+		String s3 = list.remove(1);
+		assertEquals(s3, "kiwi");
+		assertEquals(1, list.size());
+		assertEquals("apple", list.get(0));
 		
 		//Remove only element
-						
+		String s4 = list.remove(0);
+		assertEquals(s4, "apple");
+		assertEquals(0, list.size());
 	}
 
 	/**
@@ -144,7 +197,12 @@ public class CSC216ArrayListTest {
 	@Test
 	public void testSetIntE() {
 		//Attempt to set a value in an empty list
-			
+		try {
+			list.set(0,"Strawberry");
+
+		} catch(IndexOutOfBoundsException e) {
+			assertEquals(0, list.size());
+		}
 		
 		//Add 4 elements to the list and test that the contents are correct.
 		//Reuse code from your testAddIntE.
@@ -160,11 +218,21 @@ public class CSC216ArrayListTest {
 		
 		//Test that IndexOutOfBoundsException is thrown when set() is passed
 		//a negative index.  Make sure the list is unchanged.
-		
+		try {
+			list.set(-1,"Strawberry");
+
+		} catch(IndexOutOfBoundsException e) {
+			assertEquals(4, list.size());
+		}
 		
 		//Test that IndexOutOfBoundsException is thrown when set() is passed
 		//an index > size() - 1.  Make sure the list is unchanged.
-		
+		try {
+			list.set(4,"Strawberry");
+
+		} catch(IndexOutOfBoundsException e) {
+			assertEquals(4, list.size());
+		}
 		
 		//Set middle element.  Test that the element is modified correctly, set() returns the
 		//right value, and that the rest of the list is correct.
@@ -177,14 +245,30 @@ public class CSC216ArrayListTest {
 		assertEquals("kiwi", list.get(3));
 		
 		//Set first element
-		
+		String s2 = list.set(0, "strawberry");
+		assertEquals(s2, "orange");
+		assertEquals(4, list.size());
+		assertEquals("strawberry", list.get(0));
+		assertEquals("strawberry", list.get(1));
+		assertEquals("apple", list.get(2));
+		assertEquals("kiwi", list.get(3));
 		
 		//Set last element
-		
+		String s3 = list.set(3, "strawberry");
+		assertEquals(s3, "kiwi");
+		assertEquals(4, list.size());
+		assertEquals("strawberry", list.get(0));
+		assertEquals("strawberry", list.get(1));
+		assertEquals("apple", list.get(2));
+		assertEquals("strawberry", list.get(3));
 		
 		//Attempt to set an element to null.  Check that the element
 		//was not modified.
-		
+		try {
+			list.set(2,null);
+		} catch(NullPointerException e) {
+			assertEquals("apple", list.get(2));
+		}
 
 	}
 
