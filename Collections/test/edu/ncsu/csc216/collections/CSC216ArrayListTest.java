@@ -281,15 +281,42 @@ public class CSC216ArrayListTest {
 	public void testGetInt() {
 		//Add 4 elements to the list and test that the contents are correct.
 		//Reuse code from your testAddIntE.
+		list.add(0, "orange");
+		list.add(1, "banana");
+		list.add(2, "apple");
+		list.add(3, "kiwi");
+		assertEquals(4, list.size());
+		assertEquals("orange", list.get(0));
+		assertEquals("banana", list.get(1));
+		assertEquals("apple", list.get(2));
+		assertEquals("kiwi", list.get(3));
 		
 		
 		//Test that IndexOutOfBoundsException is thrown when get() is passed
 		//a negative index.  Make sure the list is unchanged.
 		
+		try{
+			list.get(-1);
+		} catch(IndexOutOfBoundsException e) {
+			assertEquals(4, list.size());
+			assertEquals("orange", list.get(0));
+			assertEquals("banana", list.get(1));
+			assertEquals("apple", list.get(2));
+			assertEquals("kiwi", list.get(3));
+		}
+		
 		
 		//Test that IndexOutOfBoundsException is thrown when get() is passed
 		//an index > size() - 1.  Make sure the list is unchanged.
-		
+		try{
+			list.get(4);
+		} catch(IndexOutOfBoundsException e) {
+			assertEquals(4, list.size());
+			assertEquals("orange", list.get(0));
+			assertEquals("banana", list.get(1));
+			assertEquals("apple", list.get(2));
+			assertEquals("kiwi", list.get(3));
+		}
 	}
 
 }
