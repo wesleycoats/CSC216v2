@@ -62,13 +62,26 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 		return size;
 	}
 	private class LinkedListIterator implements ListIterator<E> {
+		private ListNode prev;
+		private ListNode next;
+		private int prevIndex;
+		private int nextIndex;
 		
 		public LinkedListIterator() {
-			
+			new LinkedListIterator(0);
 		}
 		
 		public LinkedListIterator(int index) {
-			
+			if(index < 0 || index > size) {
+				throw new IndexOutOfBoundsException();
+			}
+			this.prev = front;
+			this.next = front.next;
+			for(int i = 0; i < size; i++) {
+				
+			}
+			this.prevIndex = index - 1;
+			this.nextIndex = index;
 		}
 		
 		@Override
