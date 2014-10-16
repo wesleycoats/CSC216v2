@@ -9,6 +9,17 @@ import java.util.ListIterator;
  * @param <E>
  */
 public class LinkedList<E> extends AbstractSequentialList<E> {
+	private ListNode front;
+	private ListNode back;
+	private int size;
+	
+	public LinkedList() {
+		this.front = new ListNode(null, null, this.back);
+		this.back = new ListNode(null, this.front, null);
+		this.size = 0;
+	}
+	
+	
 	/** 
 	 * An inner class that creates a ListNode in order to store data within the LinkedList. 
 	 * @author Logan
@@ -43,14 +54,77 @@ public class LinkedList<E> extends AbstractSequentialList<E> {
 	}
 	@Override
 	public ListIterator<E> listIterator(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return new LinkedListIterator(index);
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return size;
+	}
+	private class LinkedListIterator implements ListIterator<E> {
+		
+		public LinkedListIterator() {
+			
+		}
+		
+		public LinkedListIterator(int index) {
+			
+		}
+		
+		@Override
+		public void add(E arg0) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public boolean hasNext() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public boolean hasPrevious() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public E next() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int nextIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public E previous() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
+		@Override
+		public int previousIndex() {
+			// TODO Auto-generated method stub
+			return 0;
+		}
+
+		@Override
+		public void remove() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void set(E e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
 	}
 
 }
